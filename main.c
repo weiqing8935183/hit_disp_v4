@@ -67,7 +67,7 @@ int main(void)
    
        RTC_Config();
                                               
-        insert_queue_bkg_persent(50);                         //向队列中插入背景色
+       insert_queue_bkg_persent(50);                         //向队列中插入背景色
     
        get_matrix_data_p()->tm_p =creat_timer((void *) get_matrix_data_p(),1 , refresh_matrix_row_hook);  //建立定时器 定时刷新前景色  1ms一次
        get_key_p(0)->tm_p        =creat_timer((void *) get_key_p(0)       ,100 , key_sample_hook);                  //建立定时器 定时 读取按键值  1ms一次
