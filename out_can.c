@@ -70,7 +70,7 @@ void  out_can_rec_analyse(CanRxMsg *RxMessage)
             && (RxMessage->IDE==CAN_ID_EXT) 
             && (RxMessage->RTR==CAN_RTR_DATA) )
    {
-               ch=RxMessage->ExtId&0x0000000f;  
+               ch=(RxMessage->ExtId&0x0000000f)-1;  
                get_hit_p(ch)->rehit_num    = RxMessage->Data[0];        //重复打壳次数
                get_hit_p(ch)->hit_time     = RxMessage->Data[1]*10;     //打壳时间
                get_hit_p(ch)->hit_int_time = RxMessage->Data[2]*10;     //打壳间隔时间
@@ -78,14 +78,14 @@ void  out_can_rec_analyse(CanRxMsg *RxMessage)
                                    
                get_hit_p(ch)->hold_time=RxMessage->Data[7];         //打壳保持时间
 
-               ican_set_hit_mode(ch);
+               ican_set_hit_mode(ch+1);
                 
    }
    else if(( (RxMessage->ExtId&0xfffffff0) == ((add<<16)|(0xA100)))     //打壳设置帧
             && (RxMessage->IDE==CAN_ID_EXT) 
             && (RxMessage->RTR==CAN_RTR_DATA) )
    {
-            ch=RxMessage->ExtId&0x0000000f;  
+            ch=(RxMessage->ExtId&0x0000000f);  
 
             if(RxMessage->Data[0]!=0)                           /*如果不为0 则是设置打壳次数*/
             {
@@ -112,7 +112,7 @@ void  out_can_rec_analyse(CanRxMsg *RxMessage)
             && (RxMessage->RTR==CAN_RTR_DATA) )
    {
              time.tm_year= RxMessage->Data[0]+2000;
-             time.tm_mon=  RxMessage->Data[1]-1;
+             time.tm_mon=  RxMessage->Data[1];
              time.tm_mday= RxMessage->Data[2];
              time.tm_hour= RxMessage->Data[3];
              time.tm_min=  RxMessage->Data[4];

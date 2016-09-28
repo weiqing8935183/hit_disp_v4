@@ -172,6 +172,7 @@ void TIM2_IRQHandler (void)
        if(tim_acc>= 50)
        {
          out_can_prd();
+         tim_acc = 0;
        }
 	   TIM_ClearFlag (TIM2,TIM_FLAG_Update);//清除定时器的中断
    
