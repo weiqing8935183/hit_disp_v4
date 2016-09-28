@@ -37,7 +37,7 @@ uint8_t  refresh_hit_hook (void * p)
        if(odd_even %2 != 0)                //表示是奇数数定时器溢出
        {
           get_dy_p()->dir= DIR_D_U;
-          disp_str(get_dy_p()->data,GREEN,"2   ");
+          disp_str(get_dy_p()->data,GREEN,"1   ");
           i= 0;
 
 
@@ -45,12 +45,12 @@ uint8_t  refresh_hit_hook (void * p)
        else                              //表示是偶数定时器溢出
        {
           get_dy_p()->dir= DIR_U_D;
-          disp_str(get_dy_p()->data,GREEN,"1   "); 
+          disp_str(get_dy_p()->data,GREEN,"2   "); 
           i=1;
 
        }
 
-          i =  odd_even%2;
+       
           for(;i<HIT_NUM;i+=2)
           {
 
@@ -71,27 +71,27 @@ uint8_t  refresh_hit_hook (void * p)
                    disp_or_char(get_dy_p()->data,i/2+1,BLUE,HIT_CHAR);
               }
 
-              if(get_hit_p(i)->blk_pro > BLOCK_LIMIT)         //堵
+              if(get_hit_p(i)->blk_pro > DISP_BLOCK)         //堵
               { 
                     disp_or_char(get_dy_p()->data,i/2+1,RED,M_BLK_CHAR);
               }
 
-              if(get_hit_p(i)->lock_pro > LOCK_LIMIT)        //卡
+              if(get_hit_p(i)->lock_pro > DISP_LOCK)        //卡
               { 
                     disp_or_char(get_dy_p()->data,i/2+1,RED,HIT_CHAR);
               }
 
-              if(get_hit_p(i)->big_pro > BIG_LIMIT)          //大葫芦头
+              if(get_hit_p(i)->big_pro > DISP_BIG)          //大葫芦头
               { 
                     disp_or_char(get_dy_p()->data,i/2+1,RED,BIG_CHAR);
               }
 
-              if(get_hit_p(i)->lkg_pro > LEAKAGE_LIMIT)          //漏电
+              if(get_hit_p(i)->lkg_pro > DISP_LEAKAGE)          //漏电
               { 
                     disp_or_char(get_dy_p()->data,i/2+1,RED,LKG_CHAR);
               }
 
-              if(get_hit_p(i)->line_break > BREAK_LIMIT)          //断线
+              if(get_hit_p(i)->line_break > DISP_BREAK)          //断线
               { 
                     disp_or_char(get_dy_p()->data,i/2+1,RED,BRK_CHAR);
               }
@@ -128,37 +128,37 @@ uint8_t  refresh_hit_num_hook (void * p)
        get_dy_p()->type     = DY_DATA;
        get_dy_p()->interval = 100;
 
-       if(odd_even %2 != 0)                //表示是偶数定时器溢出
+       if(odd_even %2 != 0)                //表示是奇数定时器溢出
        {
           get_dy_p()->dir= DIR_D_U;
           disp_str(get_dy_p()->data,GREEN,"1   ");
           
 
-         i=1;
+         i=0;
        }
-       else                              //表示是奇数定时器溢出
+       else                              //表示是偶数定时器溢出
        {
           get_dy_p()->dir= DIR_U_D;
           disp_str(get_dy_p()->data,GREEN,"2   "); 
          
-         i=0;
+         i=1;
        }
 
-           i =  odd_even;
+      
           for(;i<6;i+=2)
           {
               if(get_hit_p(i)->state != HIT_STATE_HLD)
               {
-                   disp_or_char(get_dy_p()->data,i/2+1,GREEN,get_hit_p(i*2+odd_even)->num+0x30);
+                   disp_or_char(get_dy_p()->data,i/2+1,GREEN,get_hit_p(i)->num+0x30);
                    if(get_hit_p(i)->feed_back ==1)
                    {
-                        disp_or_char(get_dy_p()->data,i/2+1,BLUE,get_hit_p(i/2*2+1)->num+0x30);
+                        disp_or_char(get_dy_p()->data,i/2+1,BLUE,get_hit_p(i)->num+0x30);
                    }
               }
               else
               {
                    disp_or_char(get_dy_p()->data,i/2+1,GREEN,'H');
-                   if(get_hit_p(i/2*2+1)->feed_back ==1)
+                   if(get_hit_p(i)->feed_back ==1)
                    {
                         disp_or_char(get_dy_p()->data,i/2+1,BLUE,'H');
                    }
@@ -198,7 +198,7 @@ uint8_t  refresh_bat_hvolt_hook (void * p)
 uint8_t item_all(void)
 {
     uint8_t rtn ; 
-//    uint8_t str[8];
+    uint8_t str[8];
     uint16_t key_msg ;
     
      disp_get_item_p()->m_item = disp_get_item_p()->s_item =1;
@@ -341,50 +341,50 @@ uint8_t item_all(void)
 
    /**************************************调整背景亮度*********************************************************/
      while(get_dy_p()->state == DY_BUSY);           //等待运动结束
-//     if((disp_get_item_p()->m_item == 1)&&(disp_get_item_p()->s_item == 4))
-//     {
-//       rtn = get_matrix_data_p()->bk_color[0][0];
-//
-//      sprintf((char *)str,"%4d",rtn);          //此部分为切入动画
-//      disp_str(get_dy_p()->data,WHITE,str);
-//      get_dy_p()->type =  DY_DATA;
-//      get_dy_p()->dir= DIR_D_U;
-//      get_dy_p()->interval = 50;
-//      disp_dynamic_data();
-//      while(get_dy_p()->state == DY_BUSY);
-//     }
-//     while((disp_get_item_p()->m_item == 1)&&(disp_get_item_p()->s_item == 4))
-//     {
-//         key_msg = get_key_message(get_key_p(0));
-//
-//           switch(key_msg)
-//           {
-//                case KEY_DOWN<<(KEY_HIT1*2) :
-//                                             rtn+=5;
-//                                             
-//                                             insert_queue_bkg_persent(rtn);
-//                                            
-//                                             disp_int(get_matrix_data_p()->fg_color_str,WHITE ,rtn);
-//                                             break;
-//                case KEY_DOWN<<(KEY_HIT2*2) :
-//                                             rtn -=5;
-//                                             insert_queue_bkg_persent(rtn);
-//                                             disp_int(get_matrix_data_p()->fg_color_str,WHITE ,rtn);
-//                                             break;
-//
-//                case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
-//                                             disp_get_item_p()->m_item ++;
-//                                             break;
-//                case KEY_DOWN<<(KEY_SHT*2) :
-//                                            disp_get_item_p()->s_item ++;
-//                                             break;
-//
-//               default:
-//                                             break;
-//
-//           }
-//
-//     }
+     if((disp_get_item_p()->m_item == 1)&&(disp_get_item_p()->s_item == 4))
+     {
+       rtn = get_matrix_data_p()->bk_color[0][0];
+
+      sprintf((char *)str,"%4d",rtn);          //此部分为切入动画
+      disp_str(get_dy_p()->data,WHITE,str);
+      get_dy_p()->type =  DY_DATA;
+      get_dy_p()->dir= DIR_D_U;
+      get_dy_p()->interval = 50;
+      disp_dynamic_data();
+      while(get_dy_p()->state == DY_BUSY);
+     }
+     while((disp_get_item_p()->m_item == 1)&&(disp_get_item_p()->s_item == 4))
+     {
+         key_msg = get_key_message(get_key_p(0));
+
+           switch(key_msg)
+           {
+                case KEY_DOWN<<(KEY_HIT1*2) :
+                                             rtn+=5;
+                                             
+                                             insert_queue_bkg_persent(rtn);
+                                            
+                                             disp_int(get_matrix_data_p()->fg_color_str,WHITE ,rtn);
+                                             break;
+                case KEY_DOWN<<(KEY_HIT2*2) :
+                                             rtn -=5;
+                                             insert_queue_bkg_persent(rtn);
+                                             disp_int(get_matrix_data_p()->fg_color_str,WHITE ,rtn);
+                                             break;
+
+                case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
+                                             disp_get_item_p()->m_item ++;
+                                             break;
+                case KEY_DOWN<<(KEY_SHT*2) :
+                                            disp_get_item_p()->s_item ++;
+                                             break;
+
+               default:
+                                             break;
+
+           }
+
+     }
 
 
 

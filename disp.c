@@ -591,7 +591,7 @@ uint8_t disp_dynamic_str(DISP_DYNAMIC_CNL *cnl_p)
 
                 if(get_dy_p()->tm_p != 0)
                 {
-                    get_dy_p()->state == DY_BUSY;
+                    get_dy_p()->state = DY_BUSY;
                 }
 
       }
@@ -656,7 +656,7 @@ uint8_t disp_dynamic_str_hook(void * p)
              disp_write_data_right(get_matrix_data_p()->fg_color_str,MATRIX_NUM-1,(get_dy_p()->have_done%8),get_dy_p()->color,*(get_dy_p()->str+(dy_p->have_done/8)));
           }
 
-          get_dy_p()->tm_p=creat_timer((void *) get_dy_p(),get_dy_p()->interval , disp_dynamic_str_hook);    //创建下颚定时器
+          change_timer(get_dy_p()->tm_p,get_dy_p()->interval);;    //创建下颚定时器
 
           if(get_dy_p()->tm_p == 0)
           {
@@ -787,7 +787,7 @@ uint8_t  init_disp_item(DISP_ITEM_INFO *p)
 
    if(p!=0)
    {
-       p->m_item =8;
+       p->m_item =1;
        p->s_item =8;
    }
    else

@@ -19,7 +19,7 @@
 #define  BREAK_LIMIT      90
 #define  LEAKAGE_LIMIT    90
 
-typedef struct 
+typedef struct  hit_info
 {
 
    uint8_t   serial_num ;        //本结构体的序号，即锤头的序号
@@ -74,7 +74,7 @@ typedef struct
   
 
    
-}HIT_INFO;
+}HIT_INFO ;
 
 
 HIT_INFO * get_hit_p(uint8_t ch);

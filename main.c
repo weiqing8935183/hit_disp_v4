@@ -61,9 +61,7 @@ int main(void)
       //
       SysTick_Init();                               //初始化滴答定时器  1ms一次中断
          
-       Tim2Config(1000);                       //将定时器2 初始化为1ms一次中断
-       TIM2_NVIC_Configuration();             //开定时器2的中断 
-       TIM_Cmd(TIM2,ENABLE);
+
    
        RTC_Config();
                                               
@@ -72,40 +70,39 @@ int main(void)
        get_matrix_data_p()->tm_p =creat_timer((void *) get_matrix_data_p(),1 , refresh_matrix_row_hook);  //建立定时器 定时刷新前景色  1ms一次
        get_key_p(0)->tm_p        =creat_timer((void *) get_key_p(0)       ,100 , key_sample_hook);                  //建立定时器 定时 读取按键值  1ms一次
 
-       for(i=1;i<=HIT_NUM;i++)
-       {
-           ican_ask_hit_set(i);
-       }
 
-       cn.dir= DIR_R_L;
-       cn.interval = 10;
-       cn.color = BLUE|RED|GREEN;
-       cn.str_num =sizeof("welcome to use hit automation system. It design by CHALCO-ZYY");
-       sprintf((char *)cn.str,"welcome to use hit automation system. It design by CHALCO-ZYY");
-       disp_dynamic_str(&cn) ;
+//            ican_ask_hit_set(1);
+//            ican_ask_hit_set(2);
+//            ican_ask_hit_set(3);
+//            ican_ask_hit_set(4);
+//            ican_ask_hit_set(5);
+//            ican_ask_hit_set(6);
 
+//
+//       cn.dir= DIR_R_L;
+//       cn.interval = 100;
+//       cn.color = BLUE|RED|GREEN;
+//       cn.str_num =32;
+//       sprintf((char *)cn.str,"welcome to use hit automation system. It design by CHALCO-ZYY");
+//       disp_dynamic_str(&cn) ;
+//    
 
-      while (get_dy_p()->state ==DY_BUSY);
+//      while (get_dy_p()->state ==DY_BUSY);
+//
+//      if(get_hit_p(0)->hit_time == 0)
+//      {
+//          cn.dir= DIR_D_U;
+//          cn.interval = 10;
+//          cn.color = RED;
+//          cn.str_num =4;
+//          sprintf((char *)cn.str,"iCAN");
+//          disp_dynamic_str(&cn) ;
+//          while(1);
+//      }
 
-      if(get_hit_p(0)->hit_time == 0)
-      {
-          cn.dir= DIR_D_U;
-          cn.interval = 10;
-          cn.color = RED;
-          cn.str_num =4;
-          sprintf((char *)cn.str,"iCAN");
-          disp_dynamic_str(&cn) ;
-          while(1);
-      }
-//              disp_str(get_dy_p()->data,RED,"wq12");
-//              disp_or_char(get_dy_p()->data,0,GREEN,'W');
-//              disp_or_char(get_dy_p()->data,1,BLUE,'E');
-//              disp_or_char(get_dy_p()->data,2,BLUE|GREEN,'I');
-//              get_dy_p()->type =  DY_DATA;
-//              get_dy_p()->dir= DIR_D_U;
-//              get_dy_p()->interval = 100;
-//              disp_dynamic_data();
-//        
+       Tim2Config(1000);                       //将定时器2 初始化为1ms一次中断
+       TIM2_NVIC_Configuration();             //开定时器2的中断 
+       TIM_Cmd(TIM2,ENABLE);    
 
   	  while(1)
       {

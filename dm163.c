@@ -221,6 +221,10 @@ uint8_t  insert_matrix_queue_tail(MATRIX_SEND_MSG_QUEUE* queue_p, MATRIX_SEND_MS
       if((queue_p->tail - queue_p->head + MATIRX_QUEUE_NUM)%MATIRX_QUEUE_NUM >= (MATIRX_QUEUE_NUM-2))  //当队列已满
       {
          rtn = 1;                                            //返回队列溢出
+         /*********************************/
+         spi2_dma_init();                              //初始化spi的dma
+         init_matrix_msg_queue(queue_p);
+         get_matrix_crl_p()->state = MATRIX_CRL_IDLE;
       }
       else
       {
@@ -315,9 +319,13 @@ uint8_t start_matrix_row_send(MATRIX_CONTRAL_INFO * crl_p)
          {
               crl_p->state = MATRIX_CRL_BUSY;
 
-             if(crl_p->msg_p->type ==  BK_TYPE)
+             if((crl_p->msg_p->type) ==  BK_TYPE)
              {
-                 pin_select_bk;
+                 pin_select_bk;                
+             }
+             else
+             {
+                 pin_select_fg;
              }
              start_dma_send(crl_p->msg_p->str_p ,crl_p->msg_p->num);
 
@@ -342,14 +350,14 @@ uint8_t end_matrix_row_send_irp(MATRIX_CONTRAL_INFO * crl_p)
 {
       uint8_t rtn=0 ;
 
-
-
-      pin_lat_action;                       //数据锁存
-
       if(crl_p->msg_p->type == BK_TYPE)     //若发送的是背景色 则引脚状态为前景色  ，
       {
           pin_select_fg;                    //引脚一般都是在前景色状态， 只有发送背景色时才改为背景色状态
       }
+
+      pin_lat_action;                       //数据锁存
+
+
 
       light_matrix_row(get_matrix_data_p()->row_now);     //将显示切换到刚才发送的行
 
@@ -363,15 +371,15 @@ uint8_t end_matrix_row_send_irp(MATRIX_CONTRAL_INFO * crl_p)
 
          if(crl_p->msg_p != 0)      //头指针若不为0 说明队列中还有数据 开始发送
          {
-//             if(crl_p->msg_p->type ==  BK_TYPE)
-//             {
-//               pin_select_bk;
-//             }
+             if(crl_p->msg_p->type ==  BK_TYPE)
+             {
+               pin_select_bk;
+             }
              crl_p->state = MATRIX_CRL_BUSY;
 
              start_dma_send(crl_p->msg_p->str_p ,crl_p->msg_p->num);
 
-             
+                //start_matrix_row_send(crl_p);
          }
          else          //头指针若为0 则队列中没有数据 返回1
          {

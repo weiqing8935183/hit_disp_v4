@@ -3,11 +3,12 @@
 
 #include "stm32f10x.h"
 
-#define  BLOCK_LIMIT      90
-#define  LOCK_LIMIT       90
-#define  BIG_LIMIT        90
-#define  BREAK_LIMIT      90
-#define  LEAKAGE_LIMIT    90
+
+#define  DISP_BLOCK      80
+#define  DISP_LOCK       80
+#define  DISP_BIG        80
+#define  DISP_BREAK      80
+#define  DISP_LEAKAGE    80
 
 
 uint8_t item_all(void);
