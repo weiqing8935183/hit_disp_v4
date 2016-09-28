@@ -355,8 +355,8 @@ uint8_t end_matrix_row_send_irp(MATRIX_CONTRAL_INFO * crl_p)
           pin_select_fg;                    //引脚一般都是在前景色状态， 只有发送背景色时才改为背景色状态
       }
 
-      pin_lat_action;                       //数据锁存
 
+      pin_lat_action;                       //数据锁存
 
 
       light_matrix_row(get_matrix_data_p()->row_now);     //将显示切换到刚才发送的行

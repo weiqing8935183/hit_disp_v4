@@ -163,11 +163,16 @@ void SysTick_Handler(void)
 
 void TIM2_IRQHandler (void)
 {
-
+     static int tim_acc=0;
     if(TIM_GetITStatus(TIM2,TIM_IT_Update)==SET)  //如果是定时器更新中断
    {
+       tim_acc ++;
        ican_ask_sequence_prd();
        disp_m_item();
+       if(tim_acc>= 50)
+       {
+         out_can_prd();
+       }
 	   TIM_ClearFlag (TIM2,TIM_FLAG_Update);//清除定时器的中断
    
     }

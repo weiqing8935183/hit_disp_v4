@@ -68,39 +68,49 @@ int main(void)
        insert_queue_bkg_persent(50);                         //向队列中插入背景色
     
        get_matrix_data_p()->tm_p =creat_timer((void *) get_matrix_data_p(),1 , refresh_matrix_row_hook);  //建立定时器 定时刷新前景色  1ms一次
-       get_key_p(0)->tm_p        =creat_timer((void *) get_key_p(0)       ,100 , key_sample_hook);                  //建立定时器 定时 读取按键值  1ms一次
+       get_key_p(0)->tm_p        =creat_timer((void *) get_key_p(0)       ,10 , key_sample_hook);                  //建立定时器 定时 读取按键值  1ms一次
 
 
-//            ican_ask_hit_set(1);
-//            ican_ask_hit_set(2);
-//            ican_ask_hit_set(3);
-//            ican_ask_hit_set(4);
-//            ican_ask_hit_set(5);
-//            ican_ask_hit_set(6);
+            ican_ask_hit_set(1);
+            ican_ask_hit_set(2);
+            ican_ask_hit_set(3);
+            ican_ask_hit_set(4);
+            ican_ask_hit_set(5);
+            ican_ask_hit_set(6);
 
-//
-//       cn.dir= DIR_R_L;
-//       cn.interval = 100;
-//       cn.color = BLUE|RED|GREEN;
-//       cn.str_num =32;
-//       sprintf((char *)cn.str,"welcome to use hit automation system. It design by CHALCO-ZYY");
-//       disp_dynamic_str(&cn) ;
-//    
 
-//      while (get_dy_p()->state ==DY_BUSY);
-//
-//      if(get_hit_p(0)->hit_time == 0)
-//      {
-//          cn.dir= DIR_D_U;
-//          cn.interval = 10;
-//          cn.color = RED;
-//          cn.str_num =4;
-//          sprintf((char *)cn.str,"iCAN");
-//          disp_dynamic_str(&cn) ;
-//          while(1);
-//      }
+       cn.dir= DIR_R_L;
+       cn.interval = 30;
+       cn.color = BLUE|RED|GREEN;
+       cn.str_num =62;
+       sprintf((char *)cn.str,"welcome to use hit automation system. It design by CHALCO-ZYY  ");
+       disp_dynamic_str(&cn) ;
 
-       Tim2Config(1000);                       //将定时器2 初始化为1ms一次中断
+      while (get_dy_p()->state ==DY_BUSY)
+      {
+          if(get_key_message(get_key_p(0))!=0)
+          {
+             get_dy_p()->interval = get_dy_p()->interval/2 ;
+             if(get_dy_p()->interval <=10 )
+             {
+                get_dy_p()->interval = 10;
+             }    
+             change_timer(get_dy_p()->tm_p,get_dy_p()->interval);
+          }
+      }
+
+      if(get_hit_p(0)->hit_time == 0)
+      {
+          cn.dir= DIR_D_U;
+          cn.interval = 10;
+          cn.color = RED;
+          cn.str_num =4;
+          sprintf((char *)cn.str,"iCAN");
+          disp_dynamic_str(&cn) ;
+          while(1);
+      }
+
+       Tim2Config(100);                       //将定时器2 初始化为1ms一次中断
        TIM2_NVIC_Configuration();             //开定时器2的中断 
        TIM_Cmd(TIM2,ENABLE);    
 

@@ -36,9 +36,9 @@ uint8_t init_hit_all(HIT_INFO * hit_p)
        (hit_p+i)->serial_num = i;
 
 
-       (hit_p+i)->num    = 3;
-       (hit_p+i)->opt    = 1;
-       (hit_p+i)->feed_back    = 1;
+       (hit_p+i)->num    = 0;
+       (hit_p+i)->opt    = 0;
+       (hit_p+i)->feed_back    = 0;
 
        (hit_p+i)->blk_pro    = 0;
        (hit_p+i)->lock_pro   = 0;
