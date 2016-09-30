@@ -237,9 +237,10 @@ void USB_HP_CAN1_TX_IRQHandler(void)
 void DMA1_Channel5_IRQHandler(void)
 {
     
+     DMA_Cmd(DMA1_Channel5, DISABLE);
      if(end_matrix_row_send_irp(get_matrix_crl_p())!=0)
      {
-        DMA_Cmd(DMA1_Channel5, DISABLE);
+        
      }
      DMA_ClearITPendingBit  ( DMA1_FLAG_TC5  );  
 

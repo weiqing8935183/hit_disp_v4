@@ -10,6 +10,7 @@
 #include "rtc.h"
 
 
+
 static TIMER_STRUCT_INFO * tm_odd_p=0,*tm_even_p=0;
 
 uint8_t  refresh_hit_hook (void * p)
@@ -343,7 +344,7 @@ uint8_t item_all(void)
      while(get_dy_p()->state == DY_BUSY);           //等待运动结束
      if((disp_get_item_p()->m_item == 1)&&(disp_get_item_p()->s_item == 4))
      {
-       rtn = get_matrix_data_p()->bk_color[0][0];
+       rtn = get_matrix_data_p()->bk_color[0][0]*100/63;
 
       sprintf((char *)str,"%4d",rtn);          //此部分为切入动画
       disp_str(get_dy_p()->data,WHITE,str);
@@ -684,6 +685,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              if(mod == 0)
@@ -777,6 +779,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              if(mod == 0)
@@ -869,6 +872,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              if(mod == 0)
@@ -927,6 +931,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -986,6 +991,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1043,6 +1049,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1099,6 +1106,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1156,6 +1164,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1211,6 +1220,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1265,6 +1275,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1319,6 +1330,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1373,6 +1385,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1427,6 +1440,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1481,6 +1495,7 @@ void hit_manage(uint8_t ch)
                                              break;
                 case KEY_HOLD<<(KEY_HIT1*2) :
                                              ican_reversal_hit_hold(ch);
+                                             clear_key_hold_time(KEY_HIT1);
                                              break;
                 case KEY_HOLD<<(KEY_SET*2)|KEY_DOWN<<(KEY_SHT*2) :
                                              disp_get_item_p()->m_item ++;
@@ -1555,6 +1570,7 @@ void other_manage(void)
     uint16_t key_msg ;
     uint8_t str[20];
     struct tm time;
+    static uint8_t  last_item;
     uint16_t adj_var1,adj_var2,mod;
 
 
@@ -1568,7 +1584,15 @@ void other_manage(void)
      sprintf((char *)str,"VER3");                       //动态显示ver3  表示是第3个版本的程序
      disp_str(get_dy_p()->data,PURPLE,str);
      get_dy_p()->type =  DY_DATA;
-     get_dy_p()->dir= DIR_R_L; 
+     if(last_item == disp_get_item_p()->m_item)
+     {
+         get_dy_p()->dir= DIR_D_U;
+     }
+     else
+     {
+         get_dy_p()->dir= DIR_R_L; 
+     }
+     last_item =  disp_get_item_p()->m_item;
      get_dy_p()->interval = 40;   
      disp_dynamic_data();
 

@@ -74,7 +74,7 @@ uint8_t  key_sample_hook( void * p)
 	      else if(((key_p+i)->key_old==1)&&((key_p+i)->key_now==1))	  //¡ã¡ä?¨¹?y?¨²¡À¡ê3?
 		  {
 				  (key_p+i)->key_action=KEY_HOLD;
-				  (key_p+i)->key_hold_time += 100;
+				  (key_p+i)->key_hold_time += 10;
 		  }
 		 else if(((key_p+i)->key_old==1)&&((key_p+i)->key_now==0))   //¡ã¡ä?¨¹?¨¦?a¡À¨º??¡ê?
 	     {

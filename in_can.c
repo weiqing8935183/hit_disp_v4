@@ -304,11 +304,11 @@ uint8_t  ican_set_hit_mode(uint8_t ch)
      tx_msg.IDE   = CAN_ID_EXT;
      tx_msg.DLC   = 8;
 
-     tx_msg.Data[0] = get_hit_p(ch)->hit_time;
-     tx_msg.Data[1] = get_hit_p(ch)->hit_int_time;
-     tx_msg.Data[2] = get_hit_p(ch)->hold_time;
-     tx_msg.Data[3] = get_hit_p(ch)->history_num/10;
-     tx_msg.Data[4] = get_hit_p(ch)->rehit_num;
+     tx_msg.Data[0] = get_hit_p(ch-1)->hit_time;
+     tx_msg.Data[1] = get_hit_p(ch-1)->hit_int_time;
+     tx_msg.Data[2] = get_hit_p(ch-1)->hold_time;
+     tx_msg.Data[3] = get_hit_p(ch-1)->history_num/10;
+     tx_msg.Data[4] = get_hit_p(ch-1)->rehit_num;
      //tx_msg.Data[5] = 0x30;
     
   
@@ -324,7 +324,7 @@ uint8_t  ican_add_hit_num(uint8_t chanel)
      CanTxMsg  tx_msg;
      uint8_t rtn =0;
 
-     tx_msg.ExtId = 0x540|chanel ;
+     tx_msg.ExtId = 0x540 ;
      tx_msg.RTR   = CAN_RTR_DATA;
      tx_msg.IDE   = CAN_ID_EXT;
      tx_msg.DLC   = 6;
@@ -350,7 +350,7 @@ uint8_t ican_set_hit_num(uint8_t ch ,uint8_t num)
      CanTxMsg  tx_msg;
      uint8_t rtn =0;
 
-     tx_msg.ExtId = 0x540|ch ;
+     tx_msg.ExtId = 0x540 ;
      tx_msg.RTR   = CAN_RTR_DATA;
      tx_msg.IDE   = CAN_ID_EXT;
      tx_msg.DLC   = 6;

@@ -377,9 +377,12 @@ uint8_t end_matrix_row_send_irp(MATRIX_CONTRAL_INFO * crl_p)
              }
              crl_p->state = MATRIX_CRL_BUSY;
 
-             start_dma_send(crl_p->msg_p->str_p ,crl_p->msg_p->num);
+             
 
-                //start_matrix_row_send(crl_p);
+             start_dma_send(crl_p->msg_p->str_p ,crl_p->msg_p->num);
+              ///////////////////////////
+               
+               
          }
          else          //头指针若为0 则队列中没有数据 返回1
          {

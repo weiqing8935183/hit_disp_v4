@@ -44,6 +44,7 @@ KEY_INFO  *get_key_p(uint8_t  key_type);
 uint8_t init_key_stru(KEY_INFO  * key_p);
 uint8_t  key_sample_hook( void * p);
 uint16_t  get_key_message(KEY_INFO * key_p);
+void clear_key_hold_time(uint8_t chanel);
 
 
 
