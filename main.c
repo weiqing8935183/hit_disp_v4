@@ -110,6 +110,8 @@ int main(void)
           while(1);
       }
 
+
+    
        Tim2Config(100);                       //将定时器2 初始化为1ms一次中断
        TIM2_NVIC_Configuration();             //开定时器2的中断 
        TIM_Cmd(TIM2,ENABLE);    
