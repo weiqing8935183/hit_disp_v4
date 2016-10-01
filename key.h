@@ -10,10 +10,10 @@
 #define KEY_NUM   4
 
 
-#define  KEY_HIT2  1
-#define  KEY_HIT1  0
-#define  KEY_SET   3
-#define  KEY_SHT   2
+#define  KEY_HIT2  0
+#define  KEY_HIT1  1
+#define  KEY_SET   2
+#define  KEY_SHT   3
 
 #define KEY_ON     1
 #define KEY_OFF    0

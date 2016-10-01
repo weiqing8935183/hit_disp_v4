@@ -82,8 +82,8 @@ int main(void)
        cn.dir= DIR_R_L;
        cn.interval = 30;
        cn.color = BLUE|RED|GREEN;
-       cn.str_num =62;
-       sprintf((char *)cn.str,"welcome to use hit automation system. It design by CHALCO-ZYY  ");
+       cn.str_num =24;
+       sprintf((char *)cn.str,"designed by CHALCO-ZYY  ");
        disp_dynamic_str(&cn) ;
 
       while (get_dy_p()->state ==DY_BUSY)
